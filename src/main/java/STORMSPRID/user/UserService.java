@@ -11,8 +11,8 @@ public class UserService {
     private final Set<String> takenLogins;
     private final AccountService accountService;
 
-    public UserService() {
-        this.accountService = new AccountService();
+    public UserService(AccountService accountService) {
+        this.accountService = accountService;
         this.userMap = new HashMap<>();
         this.idCounter=0;
         this.takenLogins = new HashSet<>();

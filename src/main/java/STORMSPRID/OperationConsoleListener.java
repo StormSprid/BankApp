@@ -1,13 +1,23 @@
 package STORMSPRID;
 
+import STORMSPRID.account.AccountService;
+import STORMSPRID.user.UserService;
+
 import java.util.Scanner;
 
 public class OperationConsoleListener {
 
     private Scanner scanner;
+    private UserService userService;
+    private AccountService accountService;
 
-    public OperationConsoleListener(Scanner scanner) {
+    public OperationConsoleListener(Scanner scanner,
+                                    UserService userService,
+                                    AccountService accountService) {
+
         this.scanner = scanner;
+        this.userService = userService;
+        this.accountService = accountService;
     }
 
 

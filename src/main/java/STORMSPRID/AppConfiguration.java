@@ -19,14 +19,21 @@ public class AppConfiguration {
     }
     @Bean
     public OperationConsoleListener operationConsoleListener(
-            Scanner scanner
+            Scanner scanner,
+            UserService userService,
+            AccountService accountService
     ){
-        return new OperationConsoleListener(scanner);
+        return new OperationConsoleListener(scanner,
+                 userService,
+                 accountService);
     }
     @Bean
     public UserService userService(
-            AccountService accountService;
+            AccountService accountService
     ){
         return new UserService(accountService);
+    }
+    @Bean AccountService accountService(){
+        return new AccountService();
     }
 }

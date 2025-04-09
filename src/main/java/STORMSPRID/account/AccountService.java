@@ -12,7 +12,7 @@ public class AccountService {
     private final Map<Long,Account> accountMap;
     private int idCounter;
 
-    public AccountService(int idCounter) {
+    public AccountService() {
         this.accountMap = new HashMap<>();
         this.idCounter = 0;
     }
@@ -21,6 +21,7 @@ public class AccountService {
         idCounter++;
         Account newAccount = new Account(idCounter,user.getId(),0);
         accountMap.put(newAccount.getId(),newAccount);
+        return newAccount;
     }
     public Optional<Account> findAccountById(long id){
         return Optional.ofNullable(accountMap.get(id));
