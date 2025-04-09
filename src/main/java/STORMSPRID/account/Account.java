@@ -11,4 +11,5 @@ public class Account {
     private final long id;
     private final long userId;
     private int balance;
+    //
 }
