@@ -2,6 +2,8 @@ package STORMSPRID;
 
 
 
+import STORMSPRID.account.AccountService;
+import STORMSPRID.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,5 +22,11 @@ public class AppConfiguration {
             Scanner scanner
     ){
         return new OperationConsoleListener(scanner);
+    }
+    @Bean
+    public UserService userService(
+            AccountService accountService;
+    ){
+        return new UserService(accountService);
     }
 }
