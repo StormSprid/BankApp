@@ -6,10 +6,10 @@ import STORMSPRID.account.AccountService;
 import java.util.*;
 
 public class UserService {
+    private final AccountService accountService;
     private final Map<Long,User> userMap;
     private int idCounter;
     private final Set<String> takenLogins;
-    private final AccountService accountService;
 
     public UserService(AccountService accountService) {
         this.accountService = accountService;
@@ -28,7 +28,7 @@ public class UserService {
 
 
         User newUser = new User(idCounter,login,new ArrayList<>());
-        var newAccount = new AccountService().createAccount(newUser);
+        var newAccount = accountService.createAccount(newUser);
         newUser.getAccountList().add(newAccount);
 
         userMap.put(newUser.getId(),newUser);

@@ -19,6 +19,7 @@ public class AccountService {
 
     public Account createAccount(User user){
         idCounter++;
+        System.out.println(idCounter);
         Account newAccount = new Account(idCounter,user.getId(),0);
         accountMap.put(newAccount.getId(),newAccount);
         return newAccount;
