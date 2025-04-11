@@ -43,4 +43,17 @@ public class OperationProcessorsConfiguration {
             AccountService accountService){
         return new DepositAccountProcessor(scanner,accountService);
     }
+    @Bean public CloseAccountProcessor closeAccountProcessor(
+            Scanner scanner,
+            AccountService accountService,
+            UserService userService){
+        return  new CloseAccountProcessor(scanner,accountService,userService);
+    }
+    @Bean public WithdrawAccountProccesor withdrawAccountProccesor(
+            Scanner scanner,
+            AccountService accountService
+    ){
+        return new WithdrawAccountProccesor(scanner,accountService);
+    }
+
 }

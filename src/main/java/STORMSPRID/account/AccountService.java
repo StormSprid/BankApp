@@ -64,4 +64,45 @@ public class AccountService {
         }
         account.setBalance(account.getBalance() - moneyToWithdraw);
     }
+
+    public Account closeAccount(int accountId) {
+        var accountToRemove = findAccountById(accountId)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("No accountToRemove with id %s was found"
+                                .formatted(accountId)));
+        List<Account> accountList = getAllUserAccounts(accountToRemove.getUserId());
+        if (accountList.size() ==1){
+            throw new IllegalArgumentException("You can't close your accountToRemove bcs its single one");
+        }
+        Account accountToDeposit = accountList.stream().filter(it ->
+                it.getId()!=accountId).findFirst()
+                .orElseThrow();
+        accountToDeposit.setBalance(accountToDeposit.getBalance() + accountToRemove.getBalance());
+        accountMap.remove(accountId);
+        return accountToRemove;
+    }
+
+    public void transfer(int fromAccountId, int toAccountId, int moneyToTransfer) {
+        var fromAccount = findAccountById(fromAccountId)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("No accountToRemove with id %s was found"
+                                .formatted(fromAccountId)));
+
+
+        var toAccount = findAccountById(toAccountId)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("No accountToRemove with id %s was found"
+                                .formatted(toAccountId)));
+
+        if (moneyToTransfer<0){
+            throw new IllegalArgumentException("You cant transfer not positive amount of money");
+        }
+
+        if (fromAccount.getBalance() < moneyToTransfer){
+            throw new IllegalArgumentException(("You can't withdraw %d amount of money " +
+                    "to your account with id=%s")
+                    .formatted(moneyToTransfer,fromAccountId));
+        }
+
+    }
 }
