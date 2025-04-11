@@ -7,8 +7,12 @@ public class App
 {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("STORMSPRID");
-        context.getBean(OperationConsoleListener.class)
-                .listenUpdates();
+        OperationConsoleListener consoleListener =  context.getBean(OperationConsoleListener.class);
+        consoleListener.start();
+        consoleListener.listenUpdates();
+        consoleListener.close();
+
+
     }
 
 

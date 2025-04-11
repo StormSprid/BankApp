@@ -48,4 +48,20 @@ public class AccountService {
         }
         account.setBalance(account.getBalance() + moneyToTransfer);
     }
+
+    public void withdrawFromAccount(int accountId, int moneyToWithdraw) {
+        var account = findAccountById(accountId)
+                .orElseThrow(
+                        ()-> new IllegalArgumentException("No account with id %s was found"
+                                .formatted(accountId)));
+        if (moneyToWithdraw<0){
+            throw new IllegalArgumentException("You can't withdraw not positive amount of money");
+        }
+
+        if (account.getBalance() < moneyToWithdraw ){
+            throw new IllegalArgumentException("You can't withdraw %d amount of money to your account with id=%s"
+                    .formatted(moneyToWithdraw,accountId));
+        }
+        account.setBalance(account.getBalance() - moneyToWithdraw);
+    }
 }

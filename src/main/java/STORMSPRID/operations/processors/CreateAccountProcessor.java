@@ -1,6 +1,7 @@
 package STORMSPRID.operations.processors;
 
 import STORMSPRID.account.AccountService;
+import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
 import STORMSPRID.user.UserService;
 
@@ -33,5 +34,10 @@ public class CreateAccountProcessor implements OperationCommandProcessor {
         user.getAccountList().add(account);
         System.out.printf("Account successfully created: %s%n", account.toString());
 
+    }
+
+    @Override
+    public ConsoleOperationType getOperationType() {
+        return ConsoleOperationType.ACCOUNT_CREATE;
     }
 }

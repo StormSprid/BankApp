@@ -25,16 +25,19 @@ public class OperationConsoleListener {
 
 
 
-    public void listenUpdates(){
-        while(true){
+    public void listenUpdates() {
+
+        while (true) {
             var operationType = listenNextOperation();
             processNextOperation(operationType);
         }
+
 
     }
 
     private ConsoleOperationType listenNextOperation() {
         System.out.println("Type next operation: ");
+        printAllAvailableOperations();
         while (true) {
             var nextOperation = scanner.nextLine();
             try {
@@ -42,14 +45,19 @@ public class OperationConsoleListener {
             } catch (IllegalArgumentException e) {
                 System.out.println("No such command found");
             }
+
         }
     }
 
-    private void processNextOperation(ConsoleOperationType operationType){
-        try{
-            var processor  = processorMap.get(operationType);
+    private void printAllAvailableOperations() {
+        processorMap.keySet().forEach(System.out::println);
+    }
+
+    private void processNextOperation(ConsoleOperationType operationType) {
+        try {
+            var processor = processorMap.get(operationType);
             processor.processOperation();
-            processNextOperation(operationType);
+
 
         } catch (Exception e) {
             System.out.printf("Error executing command:%s,error: %s%n",
@@ -57,20 +65,11 @@ public class OperationConsoleListener {
                     e.getMessage());
         }
     }
-
-    private void processShowAllUsers(){
-
+    public void start(){
+        System.out.println("Console Listener Started>>>");
     }
-
-
-    private void processUserCreate(){
-
+    public void close(){
+        System.out.println("Console Listener Closed<<<");
     }
-
-    private void processAccountCreate(){
-       }
-
-
-
-
 }
+

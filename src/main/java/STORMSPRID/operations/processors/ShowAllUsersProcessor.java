@@ -1,5 +1,6 @@
 package STORMSPRID.operations.processors;
 
+import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
 import STORMSPRID.user.User;
 import STORMSPRID.user.UserService;
@@ -18,5 +19,10 @@ public class ShowAllUsersProcessor implements OperationCommandProcessor {
         List<User> users = userService.getAllUsers();
         System.out.println("List of All Users: \n");
         users.forEach(System.out::println);
+    }
+
+    @Override
+    public ConsoleOperationType getOperationType() {
+        return ConsoleOperationType.SHOW_ALL_USERS;
     }
 }
