@@ -3,9 +3,10 @@ package STORMSPRID.operations.processors;
 import STORMSPRID.account.AccountService;
 import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class TransferAccountProcessor implements OperationCommandProcessor {
     private final Scanner scanner;
     private final AccountService accountService;

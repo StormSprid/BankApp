@@ -2,9 +2,10 @@ package STORMSPRID.user;
 
 import STORMSPRID.account.Account;
 import STORMSPRID.account.AccountService;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
-
+@Service
 public class UserService {
     private final AccountService accountService;
     private final Map<Long,User> userMap;

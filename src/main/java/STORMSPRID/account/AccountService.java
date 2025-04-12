@@ -1,26 +1,30 @@
 package STORMSPRID.account;
 
 import STORMSPRID.user.User;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class AccountService {
     private final Map<Long,Account> accountMap;
     private int idCounter;
+    private final AccountProperties accountProperties;
 
-    public AccountService() {
+    public AccountService(AccountProperties accountProperties) {
+
         this.accountMap = new HashMap<>();
         this.idCounter = 0;
+        this.accountProperties = accountProperties;
     }
 
     public Account createAccount(User user){
         idCounter++;
         System.out.println(idCounter);
-        Account newAccount = new Account(idCounter,user.getId(),0);
+        Account newAccount = new Account(idCounter,user.getId(), accountProperties.getDefaultAccountAmount());
         accountMap.put(newAccount.getId(),newAccount);
         return newAccount;
     }
@@ -103,6 +107,11 @@ public class AccountService {
                     "to your account with id=%s")
                     .formatted(moneyToTransfer,fromAccountId));
         }
+        int totalAmountToDeposit = fromAccount.getUserId()!= toAccount.getUserId()
+                ?(int)(moneyToTransfer * (1 - accountProperties.getTransferCommission()))
+                : moneyToTransfer;
 
+        fromAccount.setBalance(fromAccount.getBalance()-moneyToTransfer);
+        toAccount.setBalance(toAccount.getBalance()+totalAmountToDeposit);
     }
 }

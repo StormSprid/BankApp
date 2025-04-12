@@ -4,9 +4,10 @@ import STORMSPRID.account.AccountService;
 import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
 import STORMSPRID.user.UserService;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class CreateAccountProcessor implements OperationCommandProcessor {
     private final UserService userService;
     private final Scanner scanner;

@@ -4,9 +4,10 @@ import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
 import STORMSPRID.user.User;
 import STORMSPRID.user.UserService;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ShowAllUsersProcessor implements OperationCommandProcessor {
    private final UserService userService;
 

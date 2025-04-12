@@ -6,9 +6,10 @@ import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
 import STORMSPRID.user.User;
 import STORMSPRID.user.UserService;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class CloseAccountProcessor implements OperationCommandProcessor {
     private final Scanner scanner;
     private final AccountService accountService;

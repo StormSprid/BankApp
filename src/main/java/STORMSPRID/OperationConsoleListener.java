@@ -1,34 +1,47 @@
 package STORMSPRID;
 
-import STORMSPRID.account.AccountService;
+
 import STORMSPRID.operations.ConsoleOperationType;
 import STORMSPRID.operations.OperationCommandProcessor;
-import STORMSPRID.user.UserService;
 
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-
+@Component
 public class OperationConsoleListener {
 
-    private Scanner scanner;
+    private final Scanner scanner;
     private final Map<ConsoleOperationType, OperationCommandProcessor> processorMap;
 
     public OperationConsoleListener(
             Scanner scanner,
-            Map<ConsoleOperationType, OperationCommandProcessor> processorMap) {
+            List<OperationCommandProcessor> processorList
 
+
+    ) {
         this.scanner = scanner;
 
-        this.processorMap = processorMap;
+        this.processorMap = processorList
+                        .stream()
+                        .collect(Collectors.toMap(
+                                OperationCommandProcessor::getOperationType,
+                                processor -> processor
+                        ));
     }
 
 
 
     public void listenUpdates() {
 
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             var operationType = listenNextOperation();
+            if (operationType==null){
+                return;
+            }
             processNextOperation(operationType);
         }
 
@@ -38,7 +51,7 @@ public class OperationConsoleListener {
     private ConsoleOperationType listenNextOperation() {
         System.out.println("Type next operation: ");
         printAllAvailableOperations();
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             var nextOperation = scanner.nextLine();
             try {
                 return ConsoleOperationType.valueOf(nextOperation);
@@ -47,6 +60,7 @@ public class OperationConsoleListener {
             }
 
         }
+        return null;
     }
 
     private void printAllAvailableOperations() {
